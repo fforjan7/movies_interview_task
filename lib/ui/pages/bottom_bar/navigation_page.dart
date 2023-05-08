@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:movies_interview_task/common/resources/icons.dart';
 import 'package:movies_interview_task/ui/widgets/reusable_app_bar.dart';
 
 import 'favorites_page.dart';
@@ -30,13 +32,17 @@ class _NavigationPageState extends State<NavigationPage> {
       appBar: ReusableAppBar(),
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.movie),
+            activeIcon: SvgPicture.asset(AppIcons.moviesSelected),
+            icon: SvgPicture.asset(AppIcons.moviesNonselected),
             label: 'Movies',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
+            activeIcon: SvgPicture.asset(AppIcons.favoritesSelected),
+            icon: SvgPicture.asset(AppIcons.favoritesNonSelected),
             label: 'Favorites',
           ),
         ],
