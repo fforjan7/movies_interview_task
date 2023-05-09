@@ -9,18 +9,22 @@ import '../../common/resources/colors.dart';
 
 class ReusableAppBar extends ConsumerWidget implements PreferredSizeWidget {
   ReusableAppBar({
+    required this.func,
     Key? key,
   }) : super(key: key);
 
   final AppBar appBar = AppBar();
+  final Function() func;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var connectivityStatus = ref.watch(connectivityProvider);
-    print(connectivityStatus);
+
     return AppBar(
       title: SvgPicture.asset(AppIcons.appbarLogo),
       titleSpacing: 0.0,
+      elevation: 0.0,
+      //bottomOpacity: 0.0,
       actions: [
         connectivityStatus == ConnectivityResult.none
             ? SvgPicture.asset(AppIcons.wifi)
@@ -30,7 +34,7 @@ class ReusableAppBar extends ConsumerWidget implements PreferredSizeWidget {
               left: 24,
               right: 24,
             ),
-            onPressed: () {},
+            onPressed: func,
             icon: SvgPicture.asset(AppIcons.settings))
       ],
       centerTitle: false,

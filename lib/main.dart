@@ -67,6 +67,7 @@ class _MainAppState extends ConsumerState<MainApp> {
   @override
   Widget build(BuildContext context) {
     //print(dotenv.get(AppConstants.token));
+
     return MaterialApp.router(
       title: "Interview task",
       routerConfig: _router,
