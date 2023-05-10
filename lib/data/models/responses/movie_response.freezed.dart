@@ -20,17 +20,17 @@ MovieResponse _$MovieResponseFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$MovieResponse {
-  int get id => throw _privateConstructorUsedError;
-  String get title => throw _privateConstructorUsedError;
-  String get overview => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
+  String? get title => throw _privateConstructorUsedError;
+  String? get overview => throw _privateConstructorUsedError;
   @JsonKey(name: 'backdrop_path')
-  String get backdropPath => throw _privateConstructorUsedError;
+  String? get backdropPath => throw _privateConstructorUsedError;
   @JsonKey(name: 'poster_path')
-  String get posterPath => throw _privateConstructorUsedError;
+  String? get posterPath => throw _privateConstructorUsedError;
   @JsonKey(name: 'vote_average')
-  double get vote => throw _privateConstructorUsedError;
+  double? get vote => throw _privateConstructorUsedError;
   @JsonKey(name: 'genre_ids')
-  List<int> get genres => throw _privateConstructorUsedError;
+  List<int>? get genres => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,13 +45,13 @@ abstract class $MovieResponseCopyWith<$Res> {
       _$MovieResponseCopyWithImpl<$Res, MovieResponse>;
   @useResult
   $Res call(
-      {int id,
-      String title,
-      String overview,
-      @JsonKey(name: 'backdrop_path') String backdropPath,
-      @JsonKey(name: 'poster_path') String posterPath,
-      @JsonKey(name: 'vote_average') double vote,
-      @JsonKey(name: 'genre_ids') List<int> genres});
+      {int? id,
+      String? title,
+      String? overview,
+      @JsonKey(name: 'backdrop_path') String? backdropPath,
+      @JsonKey(name: 'poster_path') String? posterPath,
+      @JsonKey(name: 'vote_average') double? vote,
+      @JsonKey(name: 'genre_ids') List<int>? genres});
 }
 
 /// @nodoc
@@ -67,43 +67,43 @@ class _$MovieResponseCopyWithImpl<$Res, $Val extends MovieResponse>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? title = null,
-    Object? overview = null,
-    Object? backdropPath = null,
-    Object? posterPath = null,
-    Object? vote = null,
-    Object? genres = null,
+    Object? id = freezed,
+    Object? title = freezed,
+    Object? overview = freezed,
+    Object? backdropPath = freezed,
+    Object? posterPath = freezed,
+    Object? vote = freezed,
+    Object? genres = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      title: null == title
+              as int?,
+      title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      overview: null == overview
+              as String?,
+      overview: freezed == overview
           ? _value.overview
           : overview // ignore: cast_nullable_to_non_nullable
-              as String,
-      backdropPath: null == backdropPath
+              as String?,
+      backdropPath: freezed == backdropPath
           ? _value.backdropPath
           : backdropPath // ignore: cast_nullable_to_non_nullable
-              as String,
-      posterPath: null == posterPath
+              as String?,
+      posterPath: freezed == posterPath
           ? _value.posterPath
           : posterPath // ignore: cast_nullable_to_non_nullable
-              as String,
-      vote: null == vote
+              as String?,
+      vote: freezed == vote
           ? _value.vote
           : vote // ignore: cast_nullable_to_non_nullable
-              as double,
-      genres: null == genres
+              as double?,
+      genres: freezed == genres
           ? _value.genres
           : genres // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+              as List<int>?,
     ) as $Val);
   }
 }
@@ -117,13 +117,13 @@ abstract class _$$_MovieResponseCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
-      String title,
-      String overview,
-      @JsonKey(name: 'backdrop_path') String backdropPath,
-      @JsonKey(name: 'poster_path') String posterPath,
-      @JsonKey(name: 'vote_average') double vote,
-      @JsonKey(name: 'genre_ids') List<int> genres});
+      {int? id,
+      String? title,
+      String? overview,
+      @JsonKey(name: 'backdrop_path') String? backdropPath,
+      @JsonKey(name: 'poster_path') String? posterPath,
+      @JsonKey(name: 'vote_average') double? vote,
+      @JsonKey(name: 'genre_ids') List<int>? genres});
 }
 
 /// @nodoc
@@ -137,43 +137,43 @@ class __$$_MovieResponseCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? title = null,
-    Object? overview = null,
-    Object? backdropPath = null,
-    Object? posterPath = null,
-    Object? vote = null,
-    Object? genres = null,
+    Object? id = freezed,
+    Object? title = freezed,
+    Object? overview = freezed,
+    Object? backdropPath = freezed,
+    Object? posterPath = freezed,
+    Object? vote = freezed,
+    Object? genres = freezed,
   }) {
     return _then(_$_MovieResponse(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      title: null == title
+              as int?,
+      title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      overview: null == overview
+              as String?,
+      overview: freezed == overview
           ? _value.overview
           : overview // ignore: cast_nullable_to_non_nullable
-              as String,
-      backdropPath: null == backdropPath
+              as String?,
+      backdropPath: freezed == backdropPath
           ? _value.backdropPath
           : backdropPath // ignore: cast_nullable_to_non_nullable
-              as String,
-      posterPath: null == posterPath
+              as String?,
+      posterPath: freezed == posterPath
           ? _value.posterPath
           : posterPath // ignore: cast_nullable_to_non_nullable
-              as String,
-      vote: null == vote
+              as String?,
+      vote: freezed == vote
           ? _value.vote
           : vote // ignore: cast_nullable_to_non_nullable
-              as double,
-      genres: null == genres
+              as double?,
+      genres: freezed == genres
           ? _value._genres
           : genres // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+              as List<int>?,
     ));
   }
 }
@@ -188,34 +188,36 @@ class _$_MovieResponse implements _MovieResponse {
       @JsonKey(name: 'backdrop_path') required this.backdropPath,
       @JsonKey(name: 'poster_path') required this.posterPath,
       @JsonKey(name: 'vote_average') required this.vote,
-      @JsonKey(name: 'genre_ids') required final List<int> genres})
+      @JsonKey(name: 'genre_ids') required final List<int>? genres})
       : _genres = genres;
 
   factory _$_MovieResponse.fromJson(Map<String, dynamic> json) =>
       _$$_MovieResponseFromJson(json);
 
   @override
-  final int id;
+  final int? id;
   @override
-  final String title;
+  final String? title;
   @override
-  final String overview;
+  final String? overview;
   @override
   @JsonKey(name: 'backdrop_path')
-  final String backdropPath;
+  final String? backdropPath;
   @override
   @JsonKey(name: 'poster_path')
-  final String posterPath;
+  final String? posterPath;
   @override
   @JsonKey(name: 'vote_average')
-  final double vote;
-  final List<int> _genres;
+  final double? vote;
+  final List<int>? _genres;
   @override
   @JsonKey(name: 'genre_ids')
-  List<int> get genres {
+  List<int>? get genres {
+    final value = _genres;
+    if (value == null) return null;
     if (_genres is EqualUnmodifiableListView) return _genres;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_genres);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
@@ -268,36 +270,36 @@ class _$_MovieResponse implements _MovieResponse {
 
 abstract class _MovieResponse implements MovieResponse {
   const factory _MovieResponse(
-          {required final int id,
-          required final String title,
-          required final String overview,
-          @JsonKey(name: 'backdrop_path') required final String backdropPath,
-          @JsonKey(name: 'poster_path') required final String posterPath,
-          @JsonKey(name: 'vote_average') required final double vote,
-          @JsonKey(name: 'genre_ids') required final List<int> genres}) =
+          {required final int? id,
+          required final String? title,
+          required final String? overview,
+          @JsonKey(name: 'backdrop_path') required final String? backdropPath,
+          @JsonKey(name: 'poster_path') required final String? posterPath,
+          @JsonKey(name: 'vote_average') required final double? vote,
+          @JsonKey(name: 'genre_ids') required final List<int>? genres}) =
       _$_MovieResponse;
 
   factory _MovieResponse.fromJson(Map<String, dynamic> json) =
       _$_MovieResponse.fromJson;
 
   @override
-  int get id;
+  int? get id;
   @override
-  String get title;
+  String? get title;
   @override
-  String get overview;
+  String? get overview;
   @override
   @JsonKey(name: 'backdrop_path')
-  String get backdropPath;
+  String? get backdropPath;
   @override
   @JsonKey(name: 'poster_path')
-  String get posterPath;
+  String? get posterPath;
   @override
   @JsonKey(name: 'vote_average')
-  double get vote;
+  double? get vote;
   @override
   @JsonKey(name: 'genre_ids')
-  List<int> get genres;
+  List<int>? get genres;
   @override
   @JsonKey(ignore: true)
   _$$_MovieResponseCopyWith<_$_MovieResponse> get copyWith =>

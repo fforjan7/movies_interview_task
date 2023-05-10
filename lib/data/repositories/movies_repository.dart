@@ -15,27 +15,26 @@ abstract class IMoviesRepository {
 }
 
 class MoviesRepository implements IMoviesRepository {
-  final MoviesService moviesService;
-  final Box<DbGenre> genresBox;
-  final Box<DbMovie> moviesBox;
-  final Box<DbMovie> favoriteMoviesBox;
+  final MoviesService _moviesService;
+  final Box<DbGenre> _genresBox;
+  final Box<DbMovie> _moviesBox;
+  final Box<DbMovie> _favoriteMoviesBox;
 
-  MoviesRepository({
-    required this.moviesService,
-    required this.genresBox,
-    required this.moviesBox,
-    required this.favoriteMoviesBox,
-  });
+  MoviesRepository(
+    this._moviesService,
+    this._genresBox,
+    this._moviesBox,
+    this._favoriteMoviesBox,
+  );
 
   @override
   Future<void> saveGenresToDb() async {
-    final genresResponse = await moviesService.fetchGenres();
+    final genresResponse = await _moviesService.fetchGenres();
   }
 
   @override
   Future<void> saveMoviesPageToDb(int page) async {
-    final popularMoviesResponse = await moviesService.getPopularMovies(page);
-    //create4 box and shits
+    final popularMoviesResponse = await _moviesService.getPopularMovies(page);
   }
 
   @override

@@ -9,10 +9,18 @@ class MoviesService {
   MoviesService(this._restClient);
 
   Future<GenresResponse> fetchGenres() async {
-    return await _restClient.fetchGenres();
+    try {
+      return await _restClient.fetchGenres();
+    } catch (e) {
+      rethrow;
+    }
   }
 
   Future<PopularMoviesResponse> getPopularMovies(int page) async {
-    return _restClient.fetchPopularMovies(page);
+    try {
+      return await _restClient.fetchPopularMovies(page);
+    } catch (e) {
+      rethrow;
+    }
   }
 }

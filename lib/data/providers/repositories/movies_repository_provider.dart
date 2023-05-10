@@ -12,9 +12,9 @@ final moviesRepositoryProvider = FutureProvider<MoviesRepository>((ref) async {
   final moviesBox = await ref.watch(moviesBoxProvider.future);
   final favoriteMoviesBox = await ref.watch(favoriteMoviesBoxProvider.future);
   return MoviesRepository(
-    moviesService: moviesService,
-    genresBox: genresBox,
-    moviesBox: moviesBox,
-    favoriteMoviesBox: favoriteMoviesBox,
+    moviesService,
+    genresBox,
+    moviesBox,
+    favoriteMoviesBox,
   );
 });

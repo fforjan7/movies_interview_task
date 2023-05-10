@@ -8,14 +8,14 @@ part of 'movie_response.dart';
 
 _$_MovieResponse _$$_MovieResponseFromJson(Map<String, dynamic> json) =>
     _$_MovieResponse(
-      id: json['id'] as int,
-      title: json['title'] as String,
-      overview: json['overview'] as String,
-      backdropPath: json['backdrop_path'] as String,
-      posterPath: json['poster_path'] as String,
-      vote: (json['vote_average'] as num).toDouble(),
+      id: json['id'] as int?,
+      title: json['title'] as String?,
+      overview: json['overview'] as String?,
+      backdropPath: json['backdrop_path'] as String?,
+      posterPath: json['poster_path'] as String?,
+      vote: (json['vote_average'] as num?)?.toDouble(),
       genres:
-          (json['genre_ids'] as List<dynamic>).map((e) => e as int).toList(),
+          (json['genre_ids'] as List<dynamic>?)?.map((e) => e as int).toList(),
     );
 
 Map<String, dynamic> _$$_MovieResponseToJson(_$_MovieResponse instance) =>
