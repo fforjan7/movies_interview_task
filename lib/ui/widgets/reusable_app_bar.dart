@@ -3,18 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movies_interview_task/common/resources/icons.dart';
-import 'package:movies_interview_task/data/connectivity_provider.dart';
+import 'package:movies_interview_task/data/providers/connectivity_provider.dart';
 
 import '../../common/resources/colors.dart';
 
 class ReusableAppBar extends ConsumerWidget implements PreferredSizeWidget {
   ReusableAppBar({
-    required this.func,
     Key? key,
   }) : super(key: key);
 
   final AppBar appBar = AppBar();
-  final Function() func;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -34,7 +32,7 @@ class ReusableAppBar extends ConsumerWidget implements PreferredSizeWidget {
               left: 24,
               right: 24,
             ),
-            onPressed: func,
+            onPressed: () {},
             icon: SvgPicture.asset(AppIcons.settings))
       ],
       centerTitle: false,
