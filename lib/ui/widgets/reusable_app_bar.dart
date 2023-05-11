@@ -38,7 +38,6 @@ class ReusableAppBar extends ConsumerWidget implements PreferredSizeWidget {
               ref.read(moviesRepositoryProvider).whenData(
                 (moviesRepo) async {
                   await moviesRepo.saveMoviesPageToDb(1);
-                  print(moviesRepo.getMoviesFromDb());
                 },
               );
             } catch (e) {

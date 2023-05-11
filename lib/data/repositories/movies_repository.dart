@@ -10,9 +10,11 @@ abstract class IMoviesRepository {
   List<DbGenre> getGenresFromDb();
 
   Future<void> saveMoviesPageToDb(int page);
+  ValueListenable<Box<DbMovie>> getMoviesListenable();
   List<DbMovie> getMoviesFromDb();
 
   Future<void> changeIsFavorite(int movieId);
+  ValueListenable<Box<DbMovie>> getFavoriteMoviesListenable();
   List<DbMovie> getFavoriteMoviesFromDb();
 }
 
@@ -72,6 +74,7 @@ class MoviesRepository implements IMoviesRepository {
     }
   }
 
+  @override
   ValueListenable<Box<DbMovie>> getMoviesListenable() {
     return _moviesBox.listenable();
   }
@@ -86,6 +89,11 @@ class MoviesRepository implements IMoviesRepository {
   //favorite movies related methods:
   @override
   Future<void> changeIsFavorite(int movieId) async {}
+
+  @override
+  ValueListenable<Box<DbMovie>> getFavoriteMoviesListenable() {
+    return _favoriteMoviesBox.listenable();
+  }
 
   @override
   List<DbMovie> getFavoriteMoviesFromDb() {

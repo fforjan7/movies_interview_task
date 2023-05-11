@@ -10,7 +10,6 @@ import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:movies_interview_task/common/resources/colors.dart';
 import 'package:movies_interview_task/data/providers/connectivity_provider.dart';
-import 'package:movies_interview_task/data/providers/initial_provider.dart';
 import 'package:movies_interview_task/ui/pages/bottom_bar/navigation_page.dart';
 import 'package:movies_interview_task/ui/pages/splash/splash_page.dart';
 
@@ -74,7 +73,6 @@ class _MainAppState extends ConsumerState<MainApp> {
 
   @override
   Widget build(BuildContext context) {
-    ref.watch(initialProvider);
     return MaterialApp.router(
       title: "Interview task",
       routerConfig: _router,
