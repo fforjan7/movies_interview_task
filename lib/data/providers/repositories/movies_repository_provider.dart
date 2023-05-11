@@ -1,20 +1,14 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movies_interview_task/data/providers/hive/favorite_movies_box_provider.dart';
-import 'package:movies_interview_task/data/providers/hive/genres_box_provider.dart';
-import 'package:movies_interview_task/data/providers/hive/movies_box_provider.dart';
+import 'package:movies_interview_task/data/providers/services/movies_data_source_provider.dart';
 import 'package:movies_interview_task/data/repositories/movies_repository.dart';
 
 import '../services/movies_service_provider.dart';
 
 final moviesRepositoryProvider = FutureProvider<MoviesRepository>((ref) async {
   final moviesService = ref.watch(moviesServiceProvider);
-  final genresBox = await ref.watch(genresBoxProvider.future);
-  final moviesBox = await ref.watch(moviesBoxProvider.future);
-  final favoriteMoviesBox = await ref.watch(favoriteMoviesBoxProvider.future);
+  final moviesDataSource = await ref.watch(moviesDataSourceProvider.future);
   return MoviesRepository(
     moviesService,
-    genresBox,
-    moviesBox,
-    favoriteMoviesBox,
+    moviesDataSource,
   );
 });

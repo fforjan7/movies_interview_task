@@ -37,7 +37,7 @@ class ReusableAppBar extends ConsumerWidget implements PreferredSizeWidget {
             try {
               ref.read(moviesRepositoryProvider).whenData(
                 (moviesRepo) async {
-                  await moviesRepo.saveMoviesPageToDb(1);
+                  await moviesRepo.fetchAndSaveMoviesPageToDb(3);
                 },
               );
             } catch (e) {
@@ -45,6 +45,27 @@ class ReusableAppBar extends ConsumerWidget implements PreferredSizeWidget {
             }
           },
           icon: SvgPicture.asset(AppIcons.settings),
+        ),
+        IconButton(
+          padding: const EdgeInsets.only(
+            left: 24,
+            right: 24,
+          ),
+          onPressed: () async {
+            try {
+              ref.read(moviesRepositoryProvider).whenData(
+                (moviesRepo) async {
+                  await moviesRepo.clearMovieDb();
+                },
+              );
+            } catch (e) {
+              print("Imas error");
+            }
+          },
+          icon: const Icon(
+            Icons.delete,
+            color: Colors.black,
+          ),
         )
       ],
       centerTitle: false,

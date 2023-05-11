@@ -23,6 +23,7 @@ class MoviesPage extends ConsumerWidget {
             final movie = movies[index];
             return ListTile(
               title: Text(movie.title),
+              leading: Text("$index"),
               // Customize the ListTile as per your requirement
             );
           },
