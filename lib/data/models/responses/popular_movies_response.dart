@@ -10,7 +10,7 @@ part 'popular_movies_response.g.dart';
 class PopularMoviesResponse with _$PopularMoviesResponse {
   const factory PopularMoviesResponse({
     required int? page,
-    @JsonKey(name: 'results') required List<MovieResponse>? movies,
+    @JsonKey(name: 'results') required List<MovieResponse> movies,
     @JsonKey(name: 'total_pages') required int? totalPages,
     @JsonKey(name: 'total_results') required int? totalResults,
   }) = _PopularMoviesResponse;

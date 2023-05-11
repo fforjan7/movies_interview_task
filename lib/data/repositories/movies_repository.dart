@@ -1,4 +1,5 @@
-import 'package:hive/hive.dart';
+import 'package:flutter/foundation.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:movies_interview_task/data/models/persistence/db_genre.dart';
 
 import '../../services/movies_service.dart';
@@ -6,12 +7,13 @@ import '../models/persistence/db_movie.dart';
 
 abstract class IMoviesRepository {
   Future<void> saveGenresToDb();
+  List<DbGenre> getGenresFromDb();
+
   Future<void> saveMoviesPageToDb(int page);
-  Future<void> setMovieAsFavorite(int movieId);
-  Future<void> removeMovieFromFavorites(int movieId);
-  Future<List<DbGenre>> getGenresFromDb();
-  Future<List<DbMovie>> getMoviesFromDb();
-  Future<List<DbMovie>> getFavoriteMoviesFromDb();
+  List<DbMovie> getMoviesFromDb();
+
+  Future<void> changeIsFavorite(int movieId);
+  List<DbMovie> getFavoriteMoviesFromDb();
 }
 
 class MoviesRepository implements IMoviesRepository {
@@ -27,34 +29,66 @@ class MoviesRepository implements IMoviesRepository {
     this._favoriteMoviesBox,
   );
 
+  // genres related methods:
   @override
   Future<void> saveGenresToDb() async {
     final genresResponse = await _moviesService.fetchGenres();
+    await _genresBox.clear();
+    for (var genre in genresResponse.genres) {
+      DbGenre dbGenre = genre.asDatabase();
+      await _genresBox.put(dbGenre.id, dbGenre);
+    }
   }
 
+  @override
+  List<DbGenre> getGenresFromDb() {
+    List<DbGenre> dbGenres = _genresBox.values.toList();
+    //List<Genre> genres = dbGenres.map((dbGenre) => dbGenre.asDomain()).toList();
+    return dbGenres;
+  }
+
+  //movies related methods:
   @override
   Future<void> saveMoviesPageToDb(int page) async {
     final popularMoviesResponse = await _moviesService.getPopularMovies(page);
+    if (page == 1) {
+      await _moviesBox.clear();
+    }
+    for (var movie in popularMoviesResponse.movies) {
+      List<DbGenre> dbGenres = _genresBox.values
+          .where((dbGenre) => movie.genres?.contains(dbGenre.id) ?? false)
+          .toList();
+
+      final dbMovie = DbMovie(
+        id: movie.id ?? -1,
+        title: movie.title ?? "",
+        overview: movie.overview ?? "",
+        backdropPath: movie.backdropPath ?? "",
+        posterPath: movie.posterPath ?? "",
+        vote: movie.vote ?? 0,
+        dbGenres: dbGenres,
+      );
+      await _moviesBox.put(dbMovie.id, dbMovie);
+    }
+  }
+
+  ValueListenable<Box<DbMovie>> getMoviesListenable() {
+    return _moviesBox.listenable();
   }
 
   @override
-  Future<void> setMovieAsFavorite(int movieId) async {}
-
-  @override
-  Future<void> removeMovieFromFavorites(int movieId) async {}
-
-  @override
-  Future<List<DbGenre>> getGenresFromDb() async {
-    return [];
+  List<DbMovie> getMoviesFromDb() {
+    List<DbMovie> dbMovies = _moviesBox.values.toList();
+    //List<Movie> movies = dbMovies.map((dbMovie) => dbMovie.asDomain()).toList();
+    return dbMovies;
   }
 
+  //favorite movies related methods:
   @override
-  Future<List<DbMovie>> getMoviesFromDb() async {
-    return [];
-  }
+  Future<void> changeIsFavorite(int movieId) async {}
 
   @override
-  Future<List<DbMovie>> getFavoriteMoviesFromDb() async {
+  List<DbMovie> getFavoriteMoviesFromDb() {
     return [];
   }
 }

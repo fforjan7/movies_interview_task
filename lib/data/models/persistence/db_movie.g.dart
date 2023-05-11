@@ -23,7 +23,7 @@ class DbMovieAdapter extends TypeAdapter<DbMovie> {
       backdropPath: fields[3] as String,
       posterPath: fields[4] as String,
       vote: fields[5] as double,
-      genres: (fields[6] as List).cast<Genre>(),
+      dbGenres: (fields[6] as List).cast<DbGenre>(),
       isFavorite: fields[7] as bool,
     );
   }
@@ -45,7 +45,7 @@ class DbMovieAdapter extends TypeAdapter<DbMovie> {
       ..writeByte(5)
       ..write(obj.vote)
       ..writeByte(6)
-      ..write(obj.genres)
+      ..write(obj.dbGenres)
       ..writeByte(7)
       ..write(obj.isFavorite);
   }

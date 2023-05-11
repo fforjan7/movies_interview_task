@@ -23,7 +23,7 @@ PopularMoviesResponse _$PopularMoviesResponseFromJson(
 mixin _$PopularMoviesResponse {
   int? get page => throw _privateConstructorUsedError;
   @JsonKey(name: 'results')
-  List<MovieResponse>? get movies => throw _privateConstructorUsedError;
+  List<MovieResponse> get movies => throw _privateConstructorUsedError;
   @JsonKey(name: 'total_pages')
   int? get totalPages => throw _privateConstructorUsedError;
   @JsonKey(name: 'total_results')
@@ -43,7 +43,7 @@ abstract class $PopularMoviesResponseCopyWith<$Res> {
   @useResult
   $Res call(
       {int? page,
-      @JsonKey(name: 'results') List<MovieResponse>? movies,
+      @JsonKey(name: 'results') List<MovieResponse> movies,
       @JsonKey(name: 'total_pages') int? totalPages,
       @JsonKey(name: 'total_results') int? totalResults});
 }
@@ -63,7 +63,7 @@ class _$PopularMoviesResponseCopyWithImpl<$Res,
   @override
   $Res call({
     Object? page = freezed,
-    Object? movies = freezed,
+    Object? movies = null,
     Object? totalPages = freezed,
     Object? totalResults = freezed,
   }) {
@@ -72,10 +72,10 @@ class _$PopularMoviesResponseCopyWithImpl<$Res,
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
               as int?,
-      movies: freezed == movies
+      movies: null == movies
           ? _value.movies
           : movies // ignore: cast_nullable_to_non_nullable
-              as List<MovieResponse>?,
+              as List<MovieResponse>,
       totalPages: freezed == totalPages
           ? _value.totalPages
           : totalPages // ignore: cast_nullable_to_non_nullable
@@ -98,7 +98,7 @@ abstract class _$$_PopularMoviesResponseCopyWith<$Res>
   @useResult
   $Res call(
       {int? page,
-      @JsonKey(name: 'results') List<MovieResponse>? movies,
+      @JsonKey(name: 'results') List<MovieResponse> movies,
       @JsonKey(name: 'total_pages') int? totalPages,
       @JsonKey(name: 'total_results') int? totalResults});
 }
@@ -115,7 +115,7 @@ class __$$_PopularMoviesResponseCopyWithImpl<$Res>
   @override
   $Res call({
     Object? page = freezed,
-    Object? movies = freezed,
+    Object? movies = null,
     Object? totalPages = freezed,
     Object? totalResults = freezed,
   }) {
@@ -124,10 +124,10 @@ class __$$_PopularMoviesResponseCopyWithImpl<$Res>
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
               as int?,
-      movies: freezed == movies
+      movies: null == movies
           ? _value._movies
           : movies // ignore: cast_nullable_to_non_nullable
-              as List<MovieResponse>?,
+              as List<MovieResponse>,
       totalPages: freezed == totalPages
           ? _value.totalPages
           : totalPages // ignore: cast_nullable_to_non_nullable
@@ -145,7 +145,7 @@ class __$$_PopularMoviesResponseCopyWithImpl<$Res>
 class _$_PopularMoviesResponse implements _PopularMoviesResponse {
   const _$_PopularMoviesResponse(
       {required this.page,
-      @JsonKey(name: 'results') required final List<MovieResponse>? movies,
+      @JsonKey(name: 'results') required final List<MovieResponse> movies,
       @JsonKey(name: 'total_pages') required this.totalPages,
       @JsonKey(name: 'total_results') required this.totalResults})
       : _movies = movies;
@@ -155,15 +155,13 @@ class _$_PopularMoviesResponse implements _PopularMoviesResponse {
 
   @override
   final int? page;
-  final List<MovieResponse>? _movies;
+  final List<MovieResponse> _movies;
   @override
   @JsonKey(name: 'results')
-  List<MovieResponse>? get movies {
-    final value = _movies;
-    if (value == null) return null;
+  List<MovieResponse> get movies {
     if (_movies is EqualUnmodifiableListView) return _movies;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableListView(_movies);
   }
 
   @override
@@ -214,7 +212,7 @@ class _$_PopularMoviesResponse implements _PopularMoviesResponse {
 abstract class _PopularMoviesResponse implements PopularMoviesResponse {
   const factory _PopularMoviesResponse(
           {required final int? page,
-          @JsonKey(name: 'results') required final List<MovieResponse>? movies,
+          @JsonKey(name: 'results') required final List<MovieResponse> movies,
           @JsonKey(name: 'total_pages') required final int? totalPages,
           @JsonKey(name: 'total_results') required final int? totalResults}) =
       _$_PopularMoviesResponse;
@@ -226,7 +224,7 @@ abstract class _PopularMoviesResponse implements PopularMoviesResponse {
   int? get page;
   @override
   @JsonKey(name: 'results')
-  List<MovieResponse>? get movies;
+  List<MovieResponse> get movies;
   @override
   @JsonKey(name: 'total_pages')
   int? get totalPages;

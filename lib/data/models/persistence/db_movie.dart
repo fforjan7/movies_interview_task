@@ -1,8 +1,8 @@
 import 'package:hive/hive.dart';
 import 'package:movies_interview_task/data/models/domain/movie.dart';
+import 'package:movies_interview_task/data/models/persistence/db_genre.dart';
 
 import '../../../common/constants/constants.dart';
-import '../domain/genre.dart';
 
 part 'db_movie.g.dart';
 
@@ -21,7 +21,7 @@ class DbMovie extends HiveObject {
   @HiveField(5)
   final double vote;
   @HiveField(6)
-  final List<Genre> genres;
+  final List<DbGenre> dbGenres;
   @HiveField(7)
   bool isFavorite;
 
@@ -32,7 +32,7 @@ class DbMovie extends HiveObject {
     required this.backdropPath,
     required this.posterPath,
     required this.vote,
-    required this.genres,
+    required this.dbGenres,
     this.isFavorite = false,
   });
 
@@ -44,7 +44,7 @@ class DbMovie extends HiveObject {
       backdropPath: backdropPath,
       posterPath: posterPath,
       vote: vote,
-      genres: genres,
+      genres: dbGenres.map((dbGenre) => dbGenre.asDomain()).toList(),
       isFavorite: isFavorite,
     );
   }

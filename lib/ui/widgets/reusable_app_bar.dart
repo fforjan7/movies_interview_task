@@ -18,7 +18,7 @@ class ReusableAppBar extends ConsumerWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var connectivityStatus = ref.watch(connectivityProvider);
-    var provider = ref.watch(moviesRepositoryProvider);
+    //var provider = ref.watch(moviesRepositoryProvider);
     return AppBar(
       title: SvgPicture.asset(AppIcons.appbarLogo),
       titleSpacing: 0.0,
@@ -35,9 +35,10 @@ class ReusableAppBar extends ConsumerWidget implements PreferredSizeWidget {
           ),
           onPressed: () async {
             try {
-              provider.whenData(
+              ref.read(moviesRepositoryProvider).whenData(
                 (moviesRepo) async {
                   await moviesRepo.saveMoviesPageToDb(1);
+                  print(moviesRepo.getMoviesFromDb());
                 },
               );
             } catch (e) {
