@@ -1,11 +1,13 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:movies_interview_task/common/enums/state_enum.dart';
+import 'package:movies_interview_task/data/providers/connectivity_provider.dart';
 import 'package:movies_interview_task/data/providers/movies_notifier.dart';
+import 'package:movies_interview_task/utils/show_reusable_alert_dialog.dart';
 
 import '../../../data/models/persistence/db_movie.dart';
-import '../../../data/providers/connectivity_provider.dart';
 
 class MoviesPage extends ConsumerStatefulWidget {
   const MoviesPage({super.key});
@@ -31,16 +33,20 @@ class _MoviesPageState extends ConsumerState<MoviesPage> {
   }
 
   Future<void> _scrollListener() async {
+    var connection = ref.watch(connectivityProvider);
     if (_scrollController.position.pixels ==
         _scrollController.position.maxScrollExtent) {
-      await ref.read(moviesProvider.notifier).fetchAndSaveMoviesPageToDb();
+      if (connection == ConnectivityResult.none) {
+        showInternetConnectionDialog(context);
+      } else {
+        await ref.read(moviesProvider.notifier).fetchAndSaveMoviesPageToDb();
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
     var provider = ref.watch(moviesProvider);
-    var connectivity = ref.watch(connectivityProvider);
     var isLoading = provider.appState == AppState.loading;
 
     return ValueListenableBuilder<Box<DbMovie>>(
