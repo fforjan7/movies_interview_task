@@ -5,9 +5,9 @@ import '../../../common/enums/state_enum.dart';
 import '../persistence/db_movie.dart';
 
 class MoviesState {
-  final int page;
-  final AppState appState;
-  final ValueListenable<Box<DbMovie>> moviesListenable;
+  int page;
+  AppState appState;
+  ValueListenable<Box<DbMovie>> moviesListenable;
 
   MoviesState({
     required this.page,

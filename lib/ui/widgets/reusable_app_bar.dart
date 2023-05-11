@@ -23,7 +23,7 @@ class ReusableAppBar extends ConsumerWidget implements PreferredSizeWidget {
       title: SvgPicture.asset(AppIcons.appbarLogo),
       titleSpacing: 0.0,
       elevation: 0.0,
-      //bottomOpacity: 0.0,
+      bottomOpacity: 0.0,
       actions: [
         connectivityStatus == ConnectivityResult.none
             ? SvgPicture.asset(AppIcons.wifi)

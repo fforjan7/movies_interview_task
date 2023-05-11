@@ -36,6 +36,19 @@ class MoviesNotifier extends StateNotifier<MoviesState> {
       moviesListenable: initialMoviesListenable,
     );
   }
+
+  Future<void> fetchAndSaveMoviesPageToDb() async {
+    try {
+      state = state
+        ..page += 1
+        ..appState = AppState.loading;
+      await repository.fetchAndSaveMoviesPageToDb(state.page);
+    } catch (e) {
+      state = state..appState = AppState.error;
+      print(e);
+    }
+    state = state..appState = AppState.success;
+  }
 }
 
 final moviesProvider =
