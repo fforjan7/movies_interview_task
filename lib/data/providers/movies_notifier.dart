@@ -37,13 +37,12 @@ class MoviesNotifier extends StateNotifier<MoviesState> {
     );
   }
 
-  Future<void> fetchAndSaveMoviesPageToDb() async {
+  Future<void> fetchAndSaveMoviesPageToDb([int? page]) async {
     state = state..appState = AppState.loading;
     try {
-      print(state.appState);
       state = state..page += 1;
 
-      await repository.fetchAndSaveMoviesPageToDb(state.page);
+      await repository.fetchAndSaveMoviesPageToDb(page ?? state.page);
     } catch (e) {
       state = state..appState = AppState.error;
       print(e);

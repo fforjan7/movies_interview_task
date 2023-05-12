@@ -33,20 +33,27 @@ class _MoviesPageState extends ConsumerState<MoviesPage> {
   }
 
   Future<void> _scrollListener() async {
-    var connection = ref.watch(connectivityProvider);
+    var connectivity = ref.watch(connectivityProvider);
     if (_scrollController.position.pixels ==
         _scrollController.position.maxScrollExtent) {
-      if (connection == ConnectivityResult.none) {
-        showInternetConnectionDialog(context);
-      } else {
-        await ref.read(moviesProvider.notifier).fetchAndSaveMoviesPageToDb();
-      }
+      await _fetchDataOrShowInternetConnectonDialog(connectivity);
+    }
+  }
+
+  Future<void> _fetchDataOrShowInternetConnectonDialog(
+      ConnectivityResult connectivity,
+      [int? page]) async {
+    if (connectivity == ConnectivityResult.none) {
+      showInternetConnectionDialog(context);
+    } else {
+      await ref.read(moviesProvider.notifier).fetchAndSaveMoviesPageToDb(page);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     var provider = ref.watch(moviesProvider);
+    var connectivity = ref.watch(connectivityProvider);
     var isLoading = provider.appState == AppState.loading;
 
     return Column(
@@ -58,31 +65,38 @@ class _MoviesPageState extends ConsumerState<MoviesPage> {
             builder: (context, box, _) {
               final movies =
                   box.values.map((movie) => movie.asDomain()).toList();
-              return ListView.builder(
-                controller: _scrollController,
-                itemCount: movies.length + (isLoading ? 1 : 0),
-                itemBuilder: (context, index) {
-                  if (index == movies.length) {
-                    return const Padding(
-                      padding: EdgeInsets.only(bottom: 10.0),
-                      child: Center(child: CircularProgressIndicator()),
-                    );
-                  }
-                  final movie = movies[index];
-                  return ListTile(
-                    onTap: () {
-                      ref
-                          .read(moviesProvider.notifier)
-                          .changeIsFavorite(movie.id);
-                    },
-                    title: Text(movie.title),
-                    leading: Text("$index"),
-                    subtitle: movie.isFavorite
-                        ? const Text("Da",
-                            style: TextStyle(color: Colors.green))
-                        : const Text("Ne", style: TextStyle(color: Colors.red)),
-                  );
+              return RefreshIndicator(
+                onRefresh: () async {
+                  await _fetchDataOrShowInternetConnectonDialog(
+                      connectivity, 1);
                 },
+                child: ListView.builder(
+                  controller: _scrollController,
+                  itemCount: movies.length + (isLoading ? 1 : 0),
+                  itemBuilder: (context, index) {
+                    if (index == movies.length) {
+                      return const Padding(
+                        padding: EdgeInsets.only(bottom: 10.0),
+                        child: Center(child: CircularProgressIndicator()),
+                      );
+                    }
+                    final movie = movies[index];
+                    return ListTile(
+                      onTap: () {
+                        ref
+                            .read(moviesProvider.notifier)
+                            .changeIsFavorite(movie.id);
+                      },
+                      title: Text(movie.title),
+                      leading: Text("$index"),
+                      subtitle: movie.isFavorite
+                          ? const Text("Da",
+                              style: TextStyle(color: Colors.green))
+                          : const Text("Ne",
+                              style: TextStyle(color: Colors.red)),
+                    );
+                  },
+                ),
               );
             },
           ),
