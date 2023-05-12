@@ -9,7 +9,7 @@
 .buildlog/
 .history
 .svn/
-secrets.env
+*.env
 
 
 # IntelliJ related

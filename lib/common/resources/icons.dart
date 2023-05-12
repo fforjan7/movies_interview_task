@@ -10,4 +10,6 @@ abstract class AppIcons {
   static const String moviesSelected = 'assets/icons/movies_selected_icon.svg';
   static const String moviesNonselected =
       'assets/icons/movies_nonselected_icon.svg';
+  static const String addToFavorite = 'assets/icons/add_to_favorites_icon.svg';
+  static const String favorite = 'assets/icons/favorite_icon.svg';
 }

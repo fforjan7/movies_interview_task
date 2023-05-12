@@ -1,7 +1,9 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
+import 'package:movies_interview_task/common/constants/routes.dart';
 import 'package:movies_interview_task/common/enums/state_enum.dart';
 import 'package:movies_interview_task/data/providers/connectivity_provider.dart';
 import 'package:movies_interview_task/data/providers/movies_notifier.dart';
@@ -74,7 +76,8 @@ class _MoviesPageState extends ConsumerState<MoviesPage> {
                     ? const Center(child: Text("Popular movies list is empty"))
                     : ListView.builder(
                         controller: _scrollController,
-                        itemCount: movies.length + (isLoading ? 1 : 0),
+                        itemCount: movies.length +
+                            (provider.appState == AppState.loading ? 1 : 0),
                         itemBuilder: (context, index) {
                           if (index == movies.length) {
                             return const Padding(
@@ -85,12 +88,22 @@ class _MoviesPageState extends ConsumerState<MoviesPage> {
                           final movie = movies[index];
                           return ListTile(
                             onTap: () {
-                              ref
-                                  .read(moviesProvider.notifier)
-                                  .changeIsFavorite(movie.id);
+                              context.push(AppRoutes.details,
+                                  extra: {'movie': movie});
                             },
                             title: Text(movie.title),
-                            leading: Text("$index"),
+                            leading: GestureDetector(
+                              onTap: () {
+                                ref
+                                    .read(moviesProvider.notifier)
+                                    .changeIsFavorite(movie.id);
+                              },
+                              child: Container(
+                                  height: 30,
+                                  width: 30,
+                                  color: Colors.red,
+                                  child: Center(child: Text("$index"))),
+                            ),
                             subtitle: movie.isFavorite
                                 ? const Text("Da",
                                     style: TextStyle(color: Colors.green))

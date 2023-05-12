@@ -10,10 +10,12 @@ import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:movies_interview_task/common/resources/colors.dart';
 import 'package:movies_interview_task/data/providers/connectivity_provider.dart';
+import 'package:movies_interview_task/ui/pages/bottom_bar/movie_details_page.dart';
 import 'package:movies_interview_task/ui/pages/bottom_bar/navigation_page.dart';
 import 'package:movies_interview_task/ui/pages/splash/splash_page.dart';
 
 import 'common/constants/routes.dart';
+import 'data/models/domain/movie.dart';
 import 'data/models/persistence/db_genre.dart';
 import 'data/models/persistence/db_movie.dart';
 
@@ -95,6 +97,16 @@ class _MainAppState extends ConsumerState<MainApp> {
         path: AppRoutes.navigation,
         builder: (BuildContext context, GoRouterState state) {
           return const NavigationPage();
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.details,
+        builder: (BuildContext context, GoRouterState state) {
+          final Map<String, dynamic> extras =
+              state.extra as Map<String, dynamic>;
+          final movie = extras['movie'] as Movie;
+
+          return MovieDetailsPage(movie: movie);
         },
       ),
     ],
