@@ -1,0 +1,4 @@
+enum ApiEndpointsEnum {
+  fetchGenres,
+  fetchPopularMovies,
+}

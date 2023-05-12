@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
 import 'package:movies_interview_task/data/providers/favorite_movies_notifier.dart';
 
+import '../../../common/constants/routes.dart';
 import '../../../data/models/persistence/db_movie.dart';
 
 class FavoritesPage extends ConsumerStatefulWidget {
@@ -39,12 +41,22 @@ class _FavoritesPageState extends ConsumerState<FavoritesPage> {
                         final movie = movies[index];
                         return ListTile(
                           onTap: () {
-                            ref
-                                .read(favoriteMoviesProvider.notifier)
-                                .changeIsFavorite(movie.id);
+                            context.push(AppRoutes.details,
+                                extra: {'movie': movie});
                           },
                           title: Text(movie.title),
-                          leading: Text("$index"),
+                          leading: GestureDetector(
+                            onTap: () {
+                              ref
+                                  .read(favoriteMoviesProvider.notifier)
+                                  .changeIsFavorite(movie.id);
+                            },
+                            child: Container(
+                                height: 30,
+                                width: 30,
+                                color: Colors.red,
+                                child: Center(child: Text("$index"))),
+                          ),
                           subtitle: movie.isFavorite
                               ? const Text("Da",
                                   style: TextStyle(color: Colors.green))

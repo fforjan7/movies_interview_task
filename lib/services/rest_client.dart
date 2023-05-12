@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:movies_interview_task/common/constants/api_endpoints.dart';
 import 'package:retrofit/http.dart';
 
 import '../common/constants/constants.dart';
@@ -15,7 +16,7 @@ abstract class RestClient {
   static RestClient create() {
     final Dio dio = Dio(
       BaseOptions(
-        baseUrl: "https://api.themoviedb.org/3",
+        baseUrl: ApiEndpoints.baseUrl,
         connectTimeout: const Duration(seconds: 10),
         sendTimeout: const Duration(seconds: 10),
         receiveTimeout: const Duration(seconds: 6),
@@ -44,10 +45,10 @@ abstract class RestClient {
     return RestClient(dio);
   }
 
-  @GET('/genre/movie/list')
+  @GET(ApiEndpoints.fetchPopularMovies)
   Future<GenresResponse> fetchGenres();
 
-  @GET('/movie/popular')
+  @GET(ApiEndpoints.fetchPopularMovies)
   Future<PopularMoviesResponse> fetchPopularMovies(
     @Query("page") int page, [
     @Query("language") String language = AppConstants.languageUS,
