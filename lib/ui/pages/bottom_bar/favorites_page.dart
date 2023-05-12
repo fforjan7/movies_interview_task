@@ -25,31 +25,34 @@ class _FavoritesPageState extends ConsumerState<FavoritesPage> {
             builder: (context, box, _) {
               final movies =
                   box.values.map((movie) => movie.asDomain()).toList();
-              return ListView.builder(
-                itemCount: movies.length,
-                itemBuilder: (context, index) {
-                  if (index == movies.length) {
-                    return const Padding(
-                      padding: EdgeInsets.only(bottom: 10.0),
-                      child: Center(child: CircularProgressIndicator()),
+              return movies.isEmpty
+                  ? const Center(child: Text("Favorite movies list is empty"))
+                  : ListView.builder(
+                      itemCount: movies.length,
+                      itemBuilder: (context, index) {
+                        if (index == movies.length) {
+                          return const Padding(
+                            padding: EdgeInsets.only(bottom: 10.0),
+                            child: Center(child: CircularProgressIndicator()),
+                          );
+                        }
+                        final movie = movies[index];
+                        return ListTile(
+                          onTap: () {
+                            ref
+                                .read(favoriteMoviesProvider.notifier)
+                                .changeIsFavorite(movie.id);
+                          },
+                          title: Text(movie.title),
+                          leading: Text("$index"),
+                          subtitle: movie.isFavorite
+                              ? const Text("Da",
+                                  style: TextStyle(color: Colors.green))
+                              : const Text("Ne",
+                                  style: TextStyle(color: Colors.red)),
+                        );
+                      },
                     );
-                  }
-                  final movie = movies[index];
-                  return ListTile(
-                    onTap: () {
-                      ref
-                          .read(favoriteMoviesProvider.notifier)
-                          .changeIsFavorite(movie.id);
-                    },
-                    title: Text(movie.title),
-                    leading: Text("$index"),
-                    subtitle: movie.isFavorite
-                        ? const Text("Da",
-                            style: TextStyle(color: Colors.green))
-                        : const Text("Ne", style: TextStyle(color: Colors.red)),
-                  );
-                },
-              );
             },
           ),
         ),

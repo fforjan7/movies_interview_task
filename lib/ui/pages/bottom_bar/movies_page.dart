@@ -70,33 +70,35 @@ class _MoviesPageState extends ConsumerState<MoviesPage> {
                   await _fetchDataOrShowInternetConnectonDialog(
                       connectivity, 1);
                 },
-                child: ListView.builder(
-                  controller: _scrollController,
-                  itemCount: movies.length + (isLoading ? 1 : 0),
-                  itemBuilder: (context, index) {
-                    if (index == movies.length) {
-                      return const Padding(
-                        padding: EdgeInsets.only(bottom: 10.0),
-                        child: Center(child: CircularProgressIndicator()),
-                      );
-                    }
-                    final movie = movies[index];
-                    return ListTile(
-                      onTap: () {
-                        ref
-                            .read(moviesProvider.notifier)
-                            .changeIsFavorite(movie.id);
-                      },
-                      title: Text(movie.title),
-                      leading: Text("$index"),
-                      subtitle: movie.isFavorite
-                          ? const Text("Da",
-                              style: TextStyle(color: Colors.green))
-                          : const Text("Ne",
-                              style: TextStyle(color: Colors.red)),
-                    );
-                  },
-                ),
+                child: movies.isEmpty
+                    ? const Center(child: Text("Popular movies list is empty"))
+                    : ListView.builder(
+                        controller: _scrollController,
+                        itemCount: movies.length + (isLoading ? 1 : 0),
+                        itemBuilder: (context, index) {
+                          if (index == movies.length) {
+                            return const Padding(
+                              padding: EdgeInsets.only(bottom: 10.0),
+                              child: Center(child: CircularProgressIndicator()),
+                            );
+                          }
+                          final movie = movies[index];
+                          return ListTile(
+                            onTap: () {
+                              ref
+                                  .read(moviesProvider.notifier)
+                                  .changeIsFavorite(movie.id);
+                            },
+                            title: Text(movie.title),
+                            leading: Text("$index"),
+                            subtitle: movie.isFavorite
+                                ? const Text("Da",
+                                    style: TextStyle(color: Colors.green))
+                                : const Text("Ne",
+                                    style: TextStyle(color: Colors.red)),
+                          );
+                        },
+                      ),
               );
             },
           ),
