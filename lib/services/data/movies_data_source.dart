@@ -32,10 +32,17 @@ class MoviesDataSource {
   Future<void> saveMoviesPageToDb(
       PopularMoviesResponse popularMoviesResponse) async {
     for (var movie in popularMoviesResponse.movies) {
+      //get List<DbGenre> from List<int>
       List<DbGenre> dbGenres = _genresBox.values
           .where((dbGenre) => movie.genres?.contains(dbGenre.id) ?? false)
           .toList();
-
+      //check if its in favorite movies
+      bool isInFavorites = false;
+      for (var favoriteMovie in _favoriteMoviesBox.values) {
+        if (favoriteMovie.id == movie.id) {
+          isInFavorites = true;
+        }
+      }
       final dbMovie = DbMovie(
         id: movie.id ?? -1,
         title: movie.title ?? "",
@@ -44,6 +51,7 @@ class MoviesDataSource {
         posterPath: movie.posterPath ?? "",
         vote: movie.vote ?? 0,
         dbGenres: dbGenres,
+        isFavorite: isInFavorites,
       );
       await _moviesBox.add(dbMovie);
     }
@@ -53,7 +61,47 @@ class MoviesDataSource {
     return _moviesBox.listenable();
   }
 
-  Future<void> changeIsFavorite(int movieId) async {}
+  Future<void> changeIsFavorite(int movieId) async {
+    bool isOnlyInFavoriteMovies = true;
+    for (var movie in _moviesBox.values) {
+      if (movie.id == movieId) {
+        isOnlyInFavoriteMovies = false;
+        movie.isFavorite = !movie.isFavorite;
+        await _moviesBox.put(movie.key, movie);
+        //add/remove to favorite movies
+        if (movie.isFavorite) {
+          await addToFavoriteMoviesBox(movie);
+        } else {
+          await deleteFromFavoriteMoviesBox(movieId);
+        }
+      }
+    }
+    if (isOnlyInFavoriteMovies) {
+      deleteFromFavoriteMoviesBox(movieId);
+    }
+  }
+
+  Future<void> addToFavoriteMoviesBox(DbMovie movie) async {
+    var favoriteMovie = DbMovie(
+      id: movie.id,
+      title: movie.title,
+      overview: movie.overview,
+      backdropPath: movie.backdropPath,
+      posterPath: movie.posterPath,
+      vote: movie.vote,
+      dbGenres: movie.dbGenres,
+      isFavorite: true,
+    );
+    await _favoriteMoviesBox.add(favoriteMovie);
+  }
+
+  Future<void> deleteFromFavoriteMoviesBox(int movieId) async {
+    for (var movie in _favoriteMoviesBox.values) {
+      if (movie.id == movieId) {
+        await _favoriteMoviesBox.delete(movie.key);
+      }
+    }
+  }
 
   ValueListenable<Box<DbMovie>> getFavoriteMoviesListenable() {
     return _favoriteMoviesBox.listenable();

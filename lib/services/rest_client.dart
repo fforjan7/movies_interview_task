@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:retrofit/http.dart';
 
 import '../common/constants/constants.dart';
@@ -23,12 +22,12 @@ abstract class RestClient {
       ),
     );
 
-    dio.interceptors.add(PrettyDioLogger(
+    /* dio.interceptors.add(PrettyDioLogger(
       requestHeader: true,
       requestBody: true,
       responseBody: false,
       compact: true,
-    ));
+    )); */
 
     dio.interceptors.add(
       InterceptorsWrapper(

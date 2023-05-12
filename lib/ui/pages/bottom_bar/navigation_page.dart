@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movies_interview_task/common/resources/colors.dart';
 import 'package:movies_interview_task/common/resources/icons.dart';
 import 'package:movies_interview_task/ui/widgets/reusable_app_bar.dart';
-import 'package:movies_interview_task/utils/show_reusable_alert_dialog.dart';
+import 'package:movies_interview_task/utils/show_internet_connection_dialog.dart';
 
 import '../../../data/providers/connectivity_provider.dart';
 import 'favorites_page.dart';
@@ -54,7 +54,10 @@ class _NavigationPageState extends ConsumerState<NavigationPage> {
     });
     return Scaffold(
       appBar: ReusableAppBar(),
-      body: _pages[_selectedIndex],
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: _pages,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         elevation: 0.0,
         backgroundColor: AppColors.whiteBackground,

@@ -63,7 +63,9 @@ class MoviesRepository implements IMoviesRepository {
 
   //favorite movies related methods:
   @override
-  Future<void> changeIsFavorite(int movieId) async {}
+  Future<void> changeIsFavorite(int movieId) async {
+    await _moviesDataSource.changeIsFavorite(movieId);
+  }
 
   @override
   ValueListenable<Box<DbMovie>> getFavoriteMoviesListenable() {

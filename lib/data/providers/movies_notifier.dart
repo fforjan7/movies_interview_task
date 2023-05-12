@@ -50,6 +50,17 @@ class MoviesNotifier extends StateNotifier<MoviesState> {
     }
     state = state..appState = AppState.success;
   }
+
+  Future<void> changeIsFavorite(movieId) async {
+    state = state..appState = AppState.loading;
+    try {
+      await repository.changeIsFavorite(movieId);
+    } catch (e) {
+      state = state..appState = AppState.error;
+      print(e);
+    }
+    state = state..appState = AppState.success;
+  }
 }
 
 final moviesProvider =
