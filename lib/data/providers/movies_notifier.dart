@@ -1,64 +1,57 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:movies_interview_task/data/models/state/movies_state.dart';
 import 'package:movies_interview_task/data/providers/connectivity_provider.dart';
 import 'package:movies_interview_task/data/providers/repositories/movies_repository_provider.dart';
 import 'package:movies_interview_task/data/repositories/movies_repository.dart';
 
 import '../../common/enums/state_enum.dart';
-import '../models/persistence/db_movie.dart';
 
 class MoviesNotifier extends StateNotifier<MoviesState> {
   MoviesNotifier(this.ref, this.repository, this.connectivityResult)
-      : super(_initState(repository, connectivityResult));
+      : super(MoviesState(
+          page: 1,
+          appState: AppState.initial,
+          moviesListenable: repository.getMoviesListenable(),
+        )) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _initState();
+    });
+  }
 
   final Ref ref;
   final MoviesRepository repository;
   final ConnectivityResult connectivityResult;
 
-  static MoviesState _initState(
-      MoviesRepository repository, ConnectivityResult connectivityResult) {
-    int initialPage = 1;
+  Future<void> _initState() async {
     if (connectivityResult != ConnectivityResult.none) {
-      repository.fetchAndSaveMoviesPageToDb(initialPage);
+      await repository.fetchAndSaveMoviesPageToDb(state.page);
     }
-
-    AppState initialAppState = AppState.initial;
-
-    ValueListenable<Box<DbMovie>> initialMoviesListenable =
-        repository.getMoviesListenable();
-
-    return MoviesState(
-      page: initialPage,
-      appState: initialAppState,
-      moviesListenable: initialMoviesListenable,
-    );
   }
 
   Future<void> fetchAndSaveMoviesPageToDb([int? page]) async {
-    state = state..appState = AppState.loading;
+    state = state.copyWith(appState: AppState.loading);
     try {
-      state = state..page += 1;
+      state = state.copyWith(page: state.page + 1);
 
       await repository.fetchAndSaveMoviesPageToDb(page ?? state.page);
     } catch (e) {
-      state = state..appState = AppState.error;
+      state = state.copyWith(appState: AppState.error);
       print(e);
     }
-    state = state..appState = AppState.success;
+    state = state.copyWith(appState: AppState.initial);
   }
 
   Future<void> changeIsFavorite(movieId) async {
-    state = state..appState = AppState.loading;
+    state = state.copyWith(appState: AppState.loading);
     try {
       await repository.changeIsFavorite(movieId);
     } catch (e) {
-      state = state..appState = AppState.error;
+      state = state.copyWith(appState: AppState.error);
       print(e);
     }
-    state = state..appState = AppState.success;
+    state = state.copyWith(appState: AppState.initial);
   }
 }
 

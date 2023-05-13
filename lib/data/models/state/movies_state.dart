@@ -1,17 +1,17 @@
 import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 
 import '../../../common/enums/state_enum.dart';
 import '../persistence/db_movie.dart';
 
-class MoviesState {
-  int page;
-  AppState appState;
-  ValueListenable<Box<DbMovie>> moviesListenable;
+part 'movies_state.freezed.dart';
 
-  MoviesState({
-    required this.page,
-    required this.appState,
-    required this.moviesListenable,
-  });
+@freezed
+class MoviesState with _$MoviesState {
+  const factory MoviesState({
+    required int page,
+    required AppState appState,
+    required ValueListenable<Box<DbMovie>> moviesListenable,
+  }) = _MoviesState;
 }

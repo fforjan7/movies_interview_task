@@ -88,8 +88,7 @@ class _MoviesPageState extends ConsumerState<MoviesPage> {
                           child: Text("Popular movies list is empty"))
                       : ListView.builder(
                           controller: _scrollController,
-                          itemCount: movies.length +
-                              (provider.appState == AppState.loading ? 1 : 0),
+                          itemCount: movies.length + (isLoading ? 1 : 0),
                           itemBuilder: (context, index) {
                             if (index == movies.length) {
                               return const Padding(

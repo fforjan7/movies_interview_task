@@ -1,15 +1,16 @@
 import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 
 import '../../../common/enums/state_enum.dart';
 import '../persistence/db_movie.dart';
 
-class FavoriteMoviesState {
-  AppState appState;
-  ValueListenable<Box<DbMovie>> favoriteMoviesListenable;
+part 'favorite_movies_state.freezed.dart';
 
-  FavoriteMoviesState({
-    required this.appState,
-    required this.favoriteMoviesListenable,
-  });
+@freezed
+class FavoriteMoviesState with _$FavoriteMoviesState {
+  const factory FavoriteMoviesState({
+    required AppState appState,
+    required ValueListenable<Box<DbMovie>> favoriteMoviesListenable,
+  }) = _FavoriteMoviesState;
 }
