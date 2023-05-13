@@ -32,18 +32,29 @@ class ReusablePosterImage extends StatelessWidget {
           child: GestureDetector(
             onTap: onTap,
             child: Container(
-                width: 24,
-                height: 24,
-                decoration: const BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(4),
-                    bottomRight: Radius.circular(4),
-                  ),
+              width: 24,
+              height: 24,
+              decoration: const BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(4),
+                  bottomRight: Radius.circular(4),
                 ),
+              ),
+              child: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 500),
+                transitionBuilder: (Widget child, Animation<double> animation) {
+                  return ScaleTransition(
+                    scale: animation,
+                    child: child,
+                  );
+                },
                 child: SvgPicture.asset(
                   movie.isFavorite ? AppIcons.favorite : AppIcons.addToFavorite,
-                )),
+                  key: ValueKey(movie.isFavorite),
+                ),
+              ),
+            ),
           ),
         ),
       ],

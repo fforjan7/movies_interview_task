@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies_interview_task/common/resources/colors.dart';
 
-import '../../common/resources/text_styles.dart';
+import '../../../common/resources/text_styles.dart';
 
 class ReusableMovieVote extends StatelessWidget {
   const ReusableMovieVote({required this.vote, super.key});

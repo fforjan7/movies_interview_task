@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:movies_interview_task/common/resources/text_styles.dart';
-import 'package:movies_interview_task/ui/widgets/reusable_genre_chip.dart';
-import 'package:movies_interview_task/ui/widgets/reusable_movie_vote.dart';
-import 'package:movies_interview_task/ui/widgets/reusable_poster_image.dart';
+import 'package:movies_interview_task/ui/widgets/movie_tile/reusable_genre_chip.dart';
+import 'package:movies_interview_task/ui/widgets/movie_tile/reusable_movie_vote.dart';
+import 'package:movies_interview_task/ui/widgets/movie_tile/reusable_poster_image.dart';
 
-import '../../data/models/domain/movie.dart';
+import '../../../data/models/domain/movie.dart';
 
 class ReusableMovieTile extends StatelessWidget {
   const ReusableMovieTile(

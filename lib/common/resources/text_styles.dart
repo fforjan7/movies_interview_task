@@ -31,7 +31,7 @@ abstract class AppTextStyles {
     fontFamily: AppFonts.filson,
     fontSize: 15,
     color: AppColors.blackTitle,
-    fontWeight: FontWeight.w500,
+    fontWeight: FontWeight.w700,
   );
 
   static const TextStyle filson22BlackTitleW700 = TextStyle(

@@ -7,11 +7,11 @@ import 'package:movies_interview_task/common/enums/state_enum.dart';
 import 'package:movies_interview_task/common/resources/text_styles.dart';
 import 'package:movies_interview_task/data/providers/connectivity_provider.dart';
 import 'package:movies_interview_task/data/providers/movies_notifier.dart';
-import 'package:movies_interview_task/ui/widgets/reusable_movie_tile.dart';
 import 'package:movies_interview_task/utils/show_internet_connection_dialog.dart';
 
 import '../../../common/constants/routes.dart';
 import '../../../data/models/persistence/db_movie.dart';
+import '../../widgets/movie_tile/reusable_movie_tile.dart';
 
 class MoviesPage extends ConsumerStatefulWidget {
   const MoviesPage({super.key});
