@@ -1,3 +1,4 @@
+import 'package:movies_interview_task/common/constants/constants.dart';
 import 'package:movies_interview_task/data/models/domain/genre.dart';
 
 class Movie {
@@ -20,4 +21,9 @@ class Movie {
     required this.isFavorite,
     required this.genres,
   });
+
+  static String getFullImagePath(String path) {
+    var url = "${AppConstants.imagesBaseUrl}/$path";
+    return url;
+  }
 }

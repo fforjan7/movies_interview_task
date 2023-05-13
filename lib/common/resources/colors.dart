@@ -6,4 +6,5 @@ abstract class AppColors {
   static const Color blackTitle = Color(0xFF202020);
   static const Color blackText = Color(0xFF33393C);
   static const Color yellow = Color(0xFFFFC319);
+  static const Color chipBackground = Color(0xFFFCEADF);
 }

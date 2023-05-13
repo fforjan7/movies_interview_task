@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
-import 'package:movies_interview_task/common/constants/routes.dart';
 import 'package:movies_interview_task/common/enums/state_enum.dart';
+import 'package:movies_interview_task/common/resources/text_styles.dart';
 import 'package:movies_interview_task/data/providers/connectivity_provider.dart';
 import 'package:movies_interview_task/data/providers/movies_notifier.dart';
+import 'package:movies_interview_task/ui/widgets/reusable_movie_tile.dart';
 import 'package:movies_interview_task/utils/show_internet_connection_dialog.dart';
 
+import '../../../common/constants/routes.dart';
 import '../../../data/models/persistence/db_movie.dart';
 
 class MoviesPage extends ConsumerStatefulWidget {
@@ -58,65 +60,70 @@ class _MoviesPageState extends ConsumerState<MoviesPage> {
     var connectivity = ref.watch(connectivityProvider);
     var isLoading = provider.appState == AppState.loading;
 
-    return Column(
-      children: [
-        const Text("POPULJAR"),
-        Expanded(
-          child: ValueListenableBuilder<Box<DbMovie>>(
-            valueListenable: provider.moviesListenable,
-            builder: (context, box, _) {
-              final movies =
-                  box.values.map((movie) => movie.asDomain()).toList();
-              return RefreshIndicator(
-                onRefresh: () async {
-                  await _fetchDataOrShowInternetConnectonDialog(
-                      connectivity, 1);
-                },
-                child: movies.isEmpty
-                    ? const Center(child: Text("Popular movies list is empty"))
-                    : ListView.builder(
-                        controller: _scrollController,
-                        itemCount: movies.length +
-                            (provider.appState == AppState.loading ? 1 : 0),
-                        itemBuilder: (context, index) {
-                          if (index == movies.length) {
-                            return const Padding(
-                              padding: EdgeInsets.only(bottom: 10.0),
-                              child: Center(child: CircularProgressIndicator()),
-                            );
-                          }
-                          final movie = movies[index];
-                          return ListTile(
-                            onTap: () {
-                              context.push(AppRoutes.details,
-                                  extra: {'movie': movie});
-                            },
-                            title: Text(movie.title),
-                            leading: GestureDetector(
-                              onTap: () {
-                                ref
-                                    .read(moviesProvider.notifier)
-                                    .changeIsFavorite(movie.id);
-                              },
-                              child: Container(
-                                  height: 30,
-                                  width: 30,
-                                  color: Colors.red,
-                                  child: Center(child: Text("$index"))),
-                            ),
-                            subtitle: movie.isFavorite
-                                ? const Text("Da",
-                                    style: TextStyle(color: Colors.green))
-                                : const Text("Ne",
-                                    style: TextStyle(color: Colors.red)),
-                          );
-                        },
-                      ),
-              );
-            },
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(top: 6.0, bottom: 20.0),
+            child: Text(
+              "Popular",
+              style: AppTextStyles.playfair24BlackTextW700,
+            ),
           ),
-        ),
-      ],
+          Expanded(
+            child: ValueListenableBuilder<Box<DbMovie>>(
+              valueListenable: provider.moviesListenable,
+              builder: (context, box, _) {
+                final movies =
+                    box.values.map((movie) => movie.asDomain()).toList();
+                return RefreshIndicator(
+                  onRefresh: () async {
+                    await _fetchDataOrShowInternetConnectonDialog(
+                        connectivity, 1);
+                  },
+                  child: movies.isEmpty
+                      ? const Center(
+                          child: Text("Popular movies list is empty"))
+                      : ListView.builder(
+                          controller: _scrollController,
+                          itemCount: movies.length +
+                              (provider.appState == AppState.loading ? 1 : 0),
+                          itemBuilder: (context, index) {
+                            if (index == movies.length) {
+                              return const Padding(
+                                padding: EdgeInsets.only(bottom: 10.0),
+                                child:
+                                    Center(child: CircularProgressIndicator()),
+                              );
+                            }
+                            final movie = movies[index];
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 20.0),
+                              child: GestureDetector(
+                                onTap: () {
+                                  context.push(AppRoutes.details,
+                                      extra: {'movie': movie});
+                                },
+                                child: ReusableMovieTile(
+                                  movie: movie,
+                                  onTap: () {
+                                    ref
+                                        .read(moviesProvider.notifier)
+                                        .changeIsFavorite(movie.id);
+                                  },
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
