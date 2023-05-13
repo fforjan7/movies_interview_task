@@ -15,8 +15,8 @@ class MoviesNotifier extends StateNotifier<MoviesState> {
           appState: AppState.initial,
           moviesListenable: repository.getMoviesListenable(),
         )) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await _initState();
     });
   }
 

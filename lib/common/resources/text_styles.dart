@@ -20,10 +20,10 @@ abstract class AppTextStyles {
     fontWeight: FontWeight.w400,
   );
 
-  static const TextStyle filson15BlackTitleW400 = TextStyle(
+  static const TextStyle filson15BlackTextW400 = TextStyle(
     fontFamily: AppFonts.filson,
     fontSize: 15,
-    color: AppColors.blackTitle,
+    color: AppColors.blackText,
     fontWeight: FontWeight.w400,
   );
 
@@ -42,6 +42,13 @@ abstract class AppTextStyles {
   );
 
   //_PLAYFAIR________________________________________________________________________
+
+  static const TextStyle playfair16BlackTextW700 = TextStyle(
+    fontFamily: AppFonts.playfair,
+    fontSize: 16,
+    color: AppColors.blackText,
+    fontWeight: FontWeight.w700,
+  );
 
   static const TextStyle playfair24BlackTextW700 = TextStyle(
     fontFamily: AppFonts.playfair,

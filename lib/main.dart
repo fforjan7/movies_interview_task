@@ -101,12 +101,23 @@ class _MainAppState extends ConsumerState<MainApp> {
       ),
       GoRoute(
         path: AppRoutes.details,
-        builder: (BuildContext context, GoRouterState state) {
+        pageBuilder: (context, state) {
           final Map<String, dynamic> extras =
               state.extra as Map<String, dynamic>;
           final movie = extras['movie'] as Movie;
 
-          return MovieDetailsPage(movie: movie);
+          return CustomTransitionPage(
+            key: state.pageKey,
+            child: MovieDetailsPage(movie: movie),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              return FadeTransition(
+                opacity:
+                    CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+                child: child,
+              );
+            },
+          );
         },
       ),
     ],
