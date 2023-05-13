@@ -1,6 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_interview_task/common/resources/text_styles.dart';
+import 'package:movies_interview_task/ui/widgets/movie_widgets/movie_details/reusable_backdrop_image.dart';
 
 import 'package:movies_interview_task/ui/widgets/movie_widgets/movie_tile/reusable_poster_image.dart';
 import 'package:movies_interview_task/ui/widgets/movie_widgets/reusable_genre_chip.dart';
@@ -29,14 +29,7 @@ class ReusableMovieTile extends StatelessWidget {
               ),
               Opacity(
                 opacity: 0,
-                child: CachedNetworkImage(
-                  height: 1,
-                  imageUrl: Movie.getFullImagePath(movie.backdropPath),
-                  placeholder: (context, url) {
-                    return const Center(child: CircularProgressIndicator());
-                  },
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                ),
+                child: ReusableBackdropImage(movie: movie, width: 1),
               ),
             ],
           ),
