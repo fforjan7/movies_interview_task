@@ -6,13 +6,25 @@ import 'package:movies_interview_task/data/models/responses/popular_movies_respo
 import '../../data/models/persistence/db_genre.dart';
 import '../../data/models/persistence/db_movie.dart';
 
-class MoviesDataSource {
+abstract class IMoviesDataSource {
+  Future<void> saveGenresToDb(GenresResponse genresResponse);
+  List<DbGenre> getGenres();
+  Future<void> clearMovieDb();
+  Future<void> saveMoviesPageToDb(PopularMoviesResponse popularMoviesResponse);
+  ValueListenable<Box<DbMovie>> getMoviesListenable();
+  Future<void> changeIsFavorite(int movieId);
+  Future<void> addToFavoriteMoviesBox(DbMovie movie);
+  deleteFromFavoriteMoviesBox(int movieId);
+}
+
+class MoviesDataSource implements IMoviesDataSource {
   final Box<DbGenre> _genresBox;
   final Box<DbMovie> _moviesBox;
   final Box<DbMovie> _favoriteMoviesBox;
 
   MoviesDataSource(this._genresBox, this._moviesBox, this._favoriteMoviesBox);
 
+  @override
   Future<void> saveGenresToDb(GenresResponse genresResponse) async {
     await _genresBox.clear();
     for (var genre in genresResponse.genres) {
@@ -21,14 +33,17 @@ class MoviesDataSource {
     }
   }
 
+  @override
   List<DbGenre> getGenres() {
     return _genresBox.values.toList();
   }
 
+  @override
   Future<void> clearMovieDb() async {
     await _moviesBox.clear();
   }
 
+  @override
   Future<void> saveMoviesPageToDb(
       PopularMoviesResponse popularMoviesResponse) async {
     for (var movie in popularMoviesResponse.movies) {
@@ -57,10 +72,12 @@ class MoviesDataSource {
     }
   }
 
+  @override
   ValueListenable<Box<DbMovie>> getMoviesListenable() {
     return _moviesBox.listenable();
   }
 
+  @override
   Future<void> changeIsFavorite(int movieId) async {
     bool isOnlyInFavoriteMovies = true;
     for (var movie in _moviesBox.values) {
@@ -81,6 +98,7 @@ class MoviesDataSource {
     }
   }
 
+  @override
   Future<void> addToFavoriteMoviesBox(DbMovie movie) async {
     var favoriteMovie = DbMovie(
       id: movie.id,
@@ -95,6 +113,7 @@ class MoviesDataSource {
     await _favoriteMoviesBox.add(favoriteMovie);
   }
 
+  @override
   Future<void> deleteFromFavoriteMoviesBox(int movieId) async {
     for (var movie in _favoriteMoviesBox.values) {
       if (movie.id == movieId) {
