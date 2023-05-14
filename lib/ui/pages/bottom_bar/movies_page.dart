@@ -100,8 +100,10 @@ class _MoviesPageState extends ConsumerState<MoviesPage> {
                         connectivity, 1);
                   },
                   child: movies.isEmpty
-                      ? const Center(
-                          child: Text("Popular movies list is empty"))
+                      ? Center(
+                          child: provider.appState == AppState.loading
+                              ? const CircularProgressIndicator()
+                              : const Text("Popular movies list is empty"))
                       : ListView.builder(
                           controller: _scrollController,
                           itemCount: movies.length + (isLoading ? 1 : 0),

@@ -46,6 +46,7 @@ class MoviesNotifier extends StateNotifier<MoviesState> {
         print(e.message());
       }
     }
+    state = state.copyWith(appState: AppState.initial);
   }
 
   void setInitialState() {
