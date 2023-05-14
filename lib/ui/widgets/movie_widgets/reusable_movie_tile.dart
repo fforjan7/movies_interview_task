@@ -29,7 +29,7 @@ class ReusableMovieTile extends StatelessWidget {
               ),
               Opacity(
                 opacity: 0,
-                child: ReusableBackdropImage(movie: movie, width: 1),
+                child: ReusableBackdropImage(movie: movie, isHidden: true),
               ),
             ],
           ),

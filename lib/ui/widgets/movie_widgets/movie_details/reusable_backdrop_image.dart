@@ -4,26 +4,30 @@ import 'package:flutter/material.dart';
 import '../../../../data/models/domain/movie.dart';
 
 class ReusableBackdropImage extends StatelessWidget {
-  const ReusableBackdropImage({required this.movie, this.width, super.key});
+  const ReusableBackdropImage({
+    required this.movie,
+    this.isHidden = false,
+    super.key,
+  });
 
   final Movie movie;
-  final double? width;
+  final bool isHidden;
 
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
-      width: width,
+      width: isHidden ? 0 : double.infinity,
       imageUrl: movie.backdropPath.isNotEmpty
           ? Movie.getFullImagePath(movie.backdropPath)
           : Movie.getFullImagePath(movie.posterPath),
       placeholder: (context, url) => Container(
           width: double.infinity,
-          height: width ?? 200,
+          height: isHidden ? 0 : 200,
           color: Colors.grey,
           child: const Center(child: CircularProgressIndicator())),
       errorWidget: (context, url, error) => Container(
         width: double.infinity,
-        height: width ?? 200,
+        height: isHidden ? 0 : 200,
         color: Colors.grey,
         child: const Icon(Icons.error),
       ),
