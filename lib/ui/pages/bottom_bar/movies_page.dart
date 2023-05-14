@@ -7,10 +7,11 @@ import 'package:movies_interview_task/common/enums/state_enum.dart';
 import 'package:movies_interview_task/common/resources/text_styles.dart';
 import 'package:movies_interview_task/data/providers/connectivity_provider.dart';
 import 'package:movies_interview_task/data/providers/movies_notifier.dart';
-import 'package:movies_interview_task/utils/show_internet_connection_dialog.dart';
+import 'package:movies_interview_task/utils/internet_connection_dialog.dart';
 
 import '../../../common/constants/routes.dart';
 import '../../../data/models/persistence/db_movie.dart';
+import '../../../utils/app_snackbar.dart';
 import '../../widgets/movie_widgets/reusable_movie_tile.dart';
 
 class MoviesPage extends ConsumerStatefulWidget {
@@ -59,6 +60,21 @@ class _MoviesPageState extends ConsumerState<MoviesPage> {
     var provider = ref.watch(moviesProvider);
     var connectivity = ref.watch(connectivityProvider);
     var isLoading = provider.appState == AppState.loading;
+
+    ref.listen(moviesProvider, (previous, next) {
+      if (next.appState == AppState.error &&
+          previous?.appState == AppState.loading) {
+        showAppSnackBar(
+          context: context,
+          text: next.error,
+          closedCallback: (value) {
+            if (mounted) {
+              ref.read(moviesProvider.notifier).setInitialState();
+            }
+          },
+        );
+      }
+    });
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24.0),

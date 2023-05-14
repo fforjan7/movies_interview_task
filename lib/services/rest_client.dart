@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:movies_interview_task/common/constants/api_endpoints.dart';
 import 'package:retrofit/http.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../common/constants/constants.dart';
 import '../data/models/responses/genres_response.dart';
@@ -23,12 +24,12 @@ abstract class RestClient {
       ),
     );
 
-    /* dio.interceptors.add(PrettyDioLogger(
+    dio.interceptors.add(PrettyDioLogger(
       requestHeader: true,
       requestBody: true,
-      responseBody: false,
+      responseBody: true,
       compact: true,
-    )); */
+    ));
 
     dio.interceptors.add(
       InterceptorsWrapper(
@@ -45,7 +46,7 @@ abstract class RestClient {
     return RestClient(dio);
   }
 
-  @GET(ApiEndpoints.fetchPopularMovies)
+  @GET(ApiEndpoints.fetchGenres)
   Future<GenresResponse> fetchGenres();
 
   @GET(ApiEndpoints.fetchPopularMovies)

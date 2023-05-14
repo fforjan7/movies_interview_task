@@ -37,8 +37,8 @@ class _MovieDetailsPageState extends ConsumerState<MovieDetailsPage> {
               children: [
                 MovieDetailsCustomAppBar(
                   isFavorite: isFavorite,
-                  onTap: () {
-                    ref
+                  onTap: () async {
+                    await ref
                         .read(moviesProvider.notifier)
                         .changeIsFavorite(widget.movie.id);
                     setState(() {

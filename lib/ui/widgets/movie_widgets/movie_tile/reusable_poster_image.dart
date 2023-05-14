@@ -18,12 +18,18 @@ class ReusablePosterImage extends StatelessWidget {
         ClipRRect(
           borderRadius: BorderRadius.circular(4),
           child: CachedNetworkImage(
+            height: 120,
             width: 85,
+            fit: BoxFit.cover,
             imageUrl: Movie.getFullImagePath(movie.posterPath),
-            placeholder: (context, url) {
-              return const Center(child: CircularProgressIndicator());
-            },
-            errorWidget: (context, url, error) => const Icon(Icons.error),
+            placeholder: (context, url) => Container(
+              color: Colors.grey,
+              child: const Center(child: CircularProgressIndicator()),
+            ),
+            errorWidget: (context, url, error) => Container(
+              color: Colors.grey,
+              child: const Icon(Icons.error),
+            ),
           ),
         ),
         Positioned(

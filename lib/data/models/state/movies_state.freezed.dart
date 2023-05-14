@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$MoviesState {
   int get page => throw _privateConstructorUsedError;
+  String get error => throw _privateConstructorUsedError;
   AppState get appState => throw _privateConstructorUsedError;
   ValueListenable<Box<DbMovie>> get moviesListenable =>
       throw _privateConstructorUsedError;
@@ -34,6 +35,7 @@ abstract class $MoviesStateCopyWith<$Res> {
   @useResult
   $Res call(
       {int page,
+      String error,
       AppState appState,
       ValueListenable<Box<DbMovie>> moviesListenable});
 }
@@ -52,6 +54,7 @@ class _$MoviesStateCopyWithImpl<$Res, $Val extends MoviesState>
   @override
   $Res call({
     Object? page = null,
+    Object? error = null,
     Object? appState = null,
     Object? moviesListenable = null,
   }) {
@@ -60,6 +63,10 @@ class _$MoviesStateCopyWithImpl<$Res, $Val extends MoviesState>
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
               as int,
+      error: null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
       appState: null == appState
           ? _value.appState
           : appState // ignore: cast_nullable_to_non_nullable
@@ -82,6 +89,7 @@ abstract class _$$_MoviesStateCopyWith<$Res>
   @useResult
   $Res call(
       {int page,
+      String error,
       AppState appState,
       ValueListenable<Box<DbMovie>> moviesListenable});
 }
@@ -98,6 +106,7 @@ class __$$_MoviesStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? page = null,
+    Object? error = null,
     Object? appState = null,
     Object? moviesListenable = null,
   }) {
@@ -106,6 +115,10 @@ class __$$_MoviesStateCopyWithImpl<$Res>
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
               as int,
+      error: null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
       appState: null == appState
           ? _value.appState
           : appState // ignore: cast_nullable_to_non_nullable
@@ -123,11 +136,14 @@ class __$$_MoviesStateCopyWithImpl<$Res>
 class _$_MoviesState with DiagnosticableTreeMixin implements _MoviesState {
   const _$_MoviesState(
       {required this.page,
+      required this.error,
       required this.appState,
       required this.moviesListenable});
 
   @override
   final int page;
+  @override
+  final String error;
   @override
   final AppState appState;
   @override
@@ -135,7 +151,7 @@ class _$_MoviesState with DiagnosticableTreeMixin implements _MoviesState {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'MoviesState(page: $page, appState: $appState, moviesListenable: $moviesListenable)';
+    return 'MoviesState(page: $page, error: $error, appState: $appState, moviesListenable: $moviesListenable)';
   }
 
   @override
@@ -144,6 +160,7 @@ class _$_MoviesState with DiagnosticableTreeMixin implements _MoviesState {
     properties
       ..add(DiagnosticsProperty('type', 'MoviesState'))
       ..add(DiagnosticsProperty('page', page))
+      ..add(DiagnosticsProperty('error', error))
       ..add(DiagnosticsProperty('appState', appState))
       ..add(DiagnosticsProperty('moviesListenable', moviesListenable));
   }
@@ -154,6 +171,7 @@ class _$_MoviesState with DiagnosticableTreeMixin implements _MoviesState {
         (other.runtimeType == runtimeType &&
             other is _$_MoviesState &&
             (identical(other.page, page) || other.page == page) &&
+            (identical(other.error, error) || other.error == error) &&
             (identical(other.appState, appState) ||
                 other.appState == appState) &&
             (identical(other.moviesListenable, moviesListenable) ||
@@ -162,7 +180,7 @@ class _$_MoviesState with DiagnosticableTreeMixin implements _MoviesState {
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, page, appState, moviesListenable);
+      Object.hash(runtimeType, page, error, appState, moviesListenable);
 
   @JsonKey(ignore: true)
   @override
@@ -174,12 +192,15 @@ class _$_MoviesState with DiagnosticableTreeMixin implements _MoviesState {
 abstract class _MoviesState implements MoviesState {
   const factory _MoviesState(
           {required final int page,
+          required final String error,
           required final AppState appState,
           required final ValueListenable<Box<DbMovie>> moviesListenable}) =
       _$_MoviesState;
 
   @override
   int get page;
+  @override
+  String get error;
   @override
   AppState get appState;
   @override

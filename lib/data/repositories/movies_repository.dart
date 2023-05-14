@@ -49,7 +49,7 @@ class MoviesRepository implements IMoviesRepository {
   //movies related methods:
   @override
   Future<void> fetchAndSaveMoviesPageToDb(int page) async {
-    final popularMoviesResponse = await _moviesService.getPopularMovies(page);
+    final popularMoviesResponse = await _moviesService.fetchPopularMovies(page);
     if (page == 1) {
       await clearMovieDb();
     }

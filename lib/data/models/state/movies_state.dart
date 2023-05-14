@@ -11,6 +11,7 @@ part 'movies_state.freezed.dart';
 class MoviesState with _$MoviesState {
   const factory MoviesState({
     required int page,
+    required String error,
     required AppState appState,
     required ValueListenable<Box<DbMovie>> moviesListenable,
   }) = _MoviesState;

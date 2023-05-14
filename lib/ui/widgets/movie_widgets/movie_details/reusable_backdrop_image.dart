@@ -16,10 +16,17 @@ class ReusableBackdropImage extends StatelessWidget {
       imageUrl: movie.backdropPath.isNotEmpty
           ? Movie.getFullImagePath(movie.backdropPath)
           : Movie.getFullImagePath(movie.posterPath),
-      placeholder: (context, url) {
-        return const Center(child: CircularProgressIndicator());
-      },
-      errorWidget: (context, url, error) => const Icon(Icons.error),
+      placeholder: (context, url) => Container(
+          width: double.infinity,
+          height: width ?? 200,
+          color: Colors.grey,
+          child: const Center(child: CircularProgressIndicator())),
+      errorWidget: (context, url, error) => Container(
+        width: double.infinity,
+        height: width ?? 200,
+        color: Colors.grey,
+        child: const Icon(Icons.error),
+      ),
     );
   }
 }
